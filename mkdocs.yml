@@ -1,0 +1,15 @@
+site_name: skeleton-ts
+extra_javascript:
+  - lib/mermaid.min.js
+extra_css:
+  - lib/mermaid.css
+nav:
+  - Home: index.md
+  - Project Sturcture:
+      - Overview: project-structure/overview.md
+  - Workflow:
+      - Documentation: workflow/doc.md
+  - About:
+      - Author: about/author.md
+theme:
+  name: material
