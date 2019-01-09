@@ -21,6 +21,8 @@ It provides:
 
 ### Example: New Endpoint
 
+With `InversifyJS`, creating new endpoint will on require editing 2 files
+
 ```ts
 // In server.ts
 
@@ -84,6 +86,24 @@ export class TodoController extends BaseHttpController {
 
 ### Example: Middleware Injection
 
+If you are using `ExpressJS` before, you may implement some middleware that modify `Request` object for controller to use.
+
+For example, a locale middleware
+
+```js
+function localeMiddleware(req, res, next) {
+  // Read locale setting from request
+  const locale = Localization.shared(this.defaultLocale);
+  const messageStore = locale.of(req.acceptsLanguages());
+  req.messageStore = messageStore;
+  next();
+}
+```
+
+This implementation will couple the middleware with controller, made it hard to test.
+
+With `InversifyJS`, we can inject the `messageStore` to controllers
+
 ```ts
 // In server.ts add one more bind in container
 
@@ -131,3 +151,5 @@ export class TodoController extends BaseHttpController {
   // ..Other Method...
 }
 ```
+
+When testing this controller, you no longer need to mock a request with `messageStore`, you can directly create an `LocalizedMessage` with specific locale.

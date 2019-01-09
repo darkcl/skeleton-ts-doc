@@ -20,3 +20,8 @@
   - Integretion Tests with API Documentation
 - Deployment
   - docker
+
+## Changes
+
+- Locale Middleware injects `Localization`
+- Service Logger
