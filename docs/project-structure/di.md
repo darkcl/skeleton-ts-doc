@@ -19,7 +19,7 @@ It provides:
 - Easy to implement container object
 - `ExpressJS` routing annotation with [inversify-express-utils](https://github.com/inversify/inversify-express-utils)
 
-### Using `InversifyJS`
+### Example: New Endpoint
 
 ```ts
 // In server.ts
@@ -79,5 +79,55 @@ export class TodoController extends BaseHttpController {
     );
     res.status(result.status).send(result.asJson());
   }
+}
+```
+
+### Example: Middleware Injection
+
+```ts
+// In server.ts add one more bind in container
+
+const container = new Container();
+// ... Other Modules ...
+container
+  .bind<LocalizationMiddleware>(TYPES.LocalizationMiddleware)
+  .to(LocalizationMiddleware);
+const defaultMessage: LocalizedMessage = Localization.shared().defaultStore();
+container
+  .bind<LocalizedMessage>(TYPES.LocalizedMessage)
+  .toConstantValue(defaultMessage);
+```
+
+```ts
+// In middleware/localization.middleware.ts
+
+@injectable()
+export class LocalizationMiddleware extends BaseMiddleware {
+  handler(req: Request, res: Response, next: NextFunction): void {
+    const locale: Localization = Localization.shared(this.defaultLocale);
+    const messageStore: LocalizedMessage = locale.of(req.acceptsLanguages());
+
+    // Bind LocalizedMessage to container
+    this.bind<LocalizedMessage>(TYPES.LocalizedMessage).toConstantValue(
+      messageStore
+    );
+    next();
+  }
+  constructor(private defaultLocale: string) {
+    super();
+  }
+}
+```
+
+```ts
+// In controller/todo.ts
+export class TodoController extends BaseHttpController {
+  constructor(
+    @inject(TYPES.TodoService) private todoService: TodoService,
+    @inject(TYPES.LocalizedMessage) private messageStore: LocalizedMessage
+  ) {
+    super();
+  }
+  // ..Other Method...
 }
 ```
