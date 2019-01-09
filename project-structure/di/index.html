@@ -251,8 +251,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#using-inversifyjs_1" title="Using InversifyJS" class="md-nav__link">
-    Using InversifyJS
+  <a href="#example-new-endpoint" title="Example: New Endpoint" class="md-nav__link">
+    Example: New Endpoint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-middleware-injection" title="Example: Middleware Injection" class="md-nav__link">
+    Example: Middleware Injection
   </a>
   
 </li>
@@ -379,8 +386,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#using-inversifyjs_1" title="Using InversifyJS" class="md-nav__link">
-    Using InversifyJS
+  <a href="#example-new-endpoint" title="Example: New Endpoint" class="md-nav__link">
+    Example: New Endpoint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-middleware-injection" title="Example: Middleware Injection" class="md-nav__link">
+    Example: Middleware Injection
   </a>
   
 </li>
@@ -424,7 +438,7 @@
 <li>Easy to implement container object</li>
 <li><code>ExpressJS</code> routing annotation with <a href="https://github.com/inversify/inversify-express-utils">inversify-express-utils</a></li>
 </ul>
-<h3 id="using-inversifyjs_1">Using <code>InversifyJS</code></h3>
+<h3 id="example-new-endpoint">Example: New Endpoint</h3>
 <div class="codehilite"><pre><span></span><span class="c1">// In server.ts</span>
 
 <span class="kr">import</span> <span class="s2">&quot;./controller/todo&quot;</span><span class="p">;</span>
@@ -482,6 +496,55 @@
     <span class="p">);</span>
     <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">asJson</span><span class="p">());</span>
   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="example-middleware-injection">Example: Middleware Injection</h3>
+<div class="codehilite"><pre><span></span><span class="c1">// In server.ts add one more bind in container</span>
+
+<span class="kr">const</span> <span class="nx">container</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Container</span><span class="p">();</span>
+<span class="c1">// ... Other Modules ...</span>
+<span class="nx">container</span>
+  <span class="p">.</span><span class="nx">bind</span><span class="o">&lt;</span><span class="nx">LocalizationMiddleware</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">TYPES</span><span class="p">.</span><span class="nx">LocalizationMiddleware</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="nx">LocalizationMiddleware</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">defaultMessage</span>: <span class="kt">LocalizedMessage</span> <span class="o">=</span> <span class="nx">Localization</span><span class="p">.</span><span class="nx">shared</span><span class="p">().</span><span class="nx">defaultStore</span><span class="p">();</span>
+<span class="nx">container</span>
+  <span class="p">.</span><span class="nx">bind</span><span class="o">&lt;</span><span class="nx">LocalizedMessage</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">TYPES</span><span class="p">.</span><span class="nx">LocalizedMessage</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">toConstantValue</span><span class="p">(</span><span class="nx">defaultMessage</span><span class="p">);</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1">// In middleware/localization.middleware.ts</span>
+
+<span class="kd">@injectable</span><span class="p">()</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">LocalizationMiddleware</span> <span class="kr">extends</span> <span class="nx">BaseMiddleware</span> <span class="p">{</span>
+  <span class="nx">handler</span><span class="p">(</span><span class="nx">req</span>: <span class="kt">Request</span><span class="p">,</span> <span class="nx">res</span>: <span class="kt">Response</span><span class="p">,</span> <span class="nx">next</span>: <span class="kt">NextFunction</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">locale</span>: <span class="kt">Localization</span> <span class="o">=</span> <span class="nx">Localization</span><span class="p">.</span><span class="nx">shared</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">defaultLocale</span><span class="p">);</span>
+    <span class="kr">const</span> <span class="nx">messageStore</span>: <span class="kt">LocalizedMessage</span> <span class="o">=</span> <span class="nx">locale</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">acceptsLanguages</span><span class="p">());</span>
+
+    <span class="c1">// Bind LocalizedMessage to container</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">bind</span><span class="o">&lt;</span><span class="nx">LocalizedMessage</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">TYPES</span><span class="p">.</span><span class="nx">LocalizedMessage</span><span class="p">).</span><span class="nx">toConstantValue</span><span class="p">(</span>
+      <span class="nx">messageStore</span>
+    <span class="p">);</span>
+    <span class="nx">next</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="kr">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">defaultLocale</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1">// In controller/todo.ts</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">TodoController</span> <span class="kr">extends</span> <span class="nx">BaseHttpController</span> <span class="p">{</span>
+  <span class="kr">constructor</span><span class="p">(</span>
+    <span class="kd">@inject</span><span class="p">(</span><span class="nx">TYPES</span><span class="p">.</span><span class="nx">TodoService</span><span class="p">)</span> <span class="kr">private</span> <span class="nx">todoService</span>: <span class="kt">TodoService</span><span class="p">,</span>
+    <span class="kd">@inject</span><span class="p">(</span><span class="nx">TYPES</span><span class="p">.</span><span class="nx">LocalizedMessage</span><span class="p">)</span> <span class="kr">private</span> <span class="nx">messageStore</span>: <span class="kt">LocalizedMessage</span>
+  <span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="c1">// ..Other Method...</span>
 <span class="p">}</span>
 </pre></div>
                 
