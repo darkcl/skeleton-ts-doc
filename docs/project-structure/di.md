@@ -21,47 +21,34 @@ It provides:
 
 ### Example: New Endpoint
 
-With `InversifyJS`, creating new endpoint will on require editing 2 files
+With `InversifyJS`, creating new endpoint will require editing `common/container.ts`, `server.ts` and create your controller.
 
 ```ts
 // In server.ts
 
 import "./controller/todo";
 
-(async () => {
-  // Connect to MongoDB
-  await MongoDBConnection.connect();
+// .. Rest of file ...
+```
 
-  // Load everything needed to the Container
-  const container = new Container();
-  container.bind<TodoService>(TYPES.TodoService).to(TodoService);
-  container.bind<TodoRepository>(TYPES.TodoRepository).to(TodoRepository);
+```ts
+// In common/container.ts
+export class AppContainer {
+  constructor() {}
 
-  // Start the server
-  const server = new InversifyExpressServer(container, null, {
-    rootPath: "/api/v1"
-  });
+  public async load(): Promise<Container> {
+    const container = new Container();
 
-  server.setConfig(app => {
-    app.use(
-      bodyParser.urlencoded({
-        extended: true
-      })
-    );
-  });
+    await this.loadMongoDB(container);
 
-  server.setErrorConfig(app => {
-    // Error Logger
-    const errorMiddleware: ErrorMiddleware = new ErrorMiddleware();
-    app.use(errorMiddleware.process());
-  });
+    container.bind<TodoService>(TYPES.TodoService).to(TodoService);
+    container.bind<TodoRepository>(TYPES.TodoRepository).to(TodoRepository);
 
-  const serverInstance = server.build();
+    // .. Other Modules ...
 
-  const port: string = process.env.PORT || "3000";
-
-  serverInstance.listen(parseInt(port));
-})();
+    return container;
+  }
+}
 ```
 
 ```ts
