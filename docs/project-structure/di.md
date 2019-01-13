@@ -124,16 +124,16 @@ container
 @injectable()
 export class LocalizationMiddleware extends BaseMiddleware {
   handler(req: Request, res: Response, next: NextFunction): void {
-    const locale: Localization = Localization.shared(this.defaultLocale);
-    const messageStore: LocalizedMessage = locale.of(req.acceptsLanguages());
-
+    const messageStore: LocalizedMessage = this.localeManager.of(
+      req.acceptsLanguages()
+    );
     // Bind LocalizedMessage to container
     this.bind<LocalizedMessage>(TYPES.LocalizedMessage).toConstantValue(
       messageStore
     );
     next();
   }
-  constructor(private defaultLocale: string) {
+  constructor(@inject(TYPES.Localization) private localeManager: Localization) {
     super();
   }
 }

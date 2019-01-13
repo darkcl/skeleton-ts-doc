@@ -7,7 +7,7 @@
 ```
 app
 ├── common
-│   └── { Common Module, e.g. Data Object }
+│   └── { App Container, Common Module, e.g. Data Object }
 ├── constant
 │   └── { Constant Variable, e.g. DI Types }
 ├── controller
