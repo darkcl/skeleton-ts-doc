@@ -7,7 +7,7 @@ Dependency Injection provides:
 - Loosely couple in each modules
 - Testable code for each modules
 - Concurrent development for multiple developers
-- Inverse of control
+- Inversion of control
 - Remove any need of singleton object
 
 ## Using `InversifyJS`

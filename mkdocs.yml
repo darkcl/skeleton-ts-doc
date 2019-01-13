@@ -11,7 +11,13 @@ nav:
       - Overview: project-structure/overview.md
       - Dependency Injection: project-structure/di.md
   - Workflow:
+      - Overview: workflow/overview.md
       - Writing Documentation: workflow/doc.md
+      - Development: workflow/development.md
+      - Unit Testing: workflow/unit-testing.md
+      - Integration Testing: workflow/integration-testing.md
+      - Deployment: workflow/deployment.md
+      - Monitoring: workflow/monitoring.md
   - About:
       - Author: about/author.md
 theme:
