@@ -250,6 +250,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -260,10 +272,154 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Writing Documentation
+      </label>
+    
     <a href="./" title="Writing Documentation" class="md-nav__link md-nav__link--active">
       Writing Documentation
     </a>
     
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example-todo-specification" title="Example: Todo Specification" class="md-nav__link">
+    Example: Todo Specification
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta-data" title="Meta Data" class="md-nav__link">
+    Meta Data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group" title="Group" class="md-nav__link">
+    Group
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collection" title="Collection" class="md-nav__link">
+    Collection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actions" title="Actions" class="md-nav__link">
+    Actions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-structures" title="Data Structures" class="md-nav__link">
+    Data Structures
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-documentation-website" title="Example: Documentation Website" class="md-nav__link">
+    Example: Documentation Website
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-mock-server" title="Example: Mock Server" class="md-nav__link">
+    Example: Mock Server
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../development/" title="Development" class="md-nav__link">
+      Development
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../unit-testing/" title="Unit Testing" class="md-nav__link">
+      Unit Testing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../integration-testing/" title="Integration Testing" class="md-nav__link">
+      Integration Testing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../deployment/" title="Deployment" class="md-nav__link">
+      Deployment
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../monitoring/" title="Monitoring" class="md-nav__link">
+      Monitoring
+    </a>
   </li>
 
         
@@ -325,6 +481,77 @@
     
   
   
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example-todo-specification" title="Example: Todo Specification" class="md-nav__link">
+    Example: Todo Specification
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta-data" title="Meta Data" class="md-nav__link">
+    Meta Data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group" title="Group" class="md-nav__link">
+    Group
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collection" title="Collection" class="md-nav__link">
+    Collection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actions" title="Actions" class="md-nav__link">
+    Actions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-structures" title="Data Structures" class="md-nav__link">
+    Data Structures
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-documentation-website" title="Example: Documentation Website" class="md-nav__link">
+    Example: Documentation Website
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-mock-server" title="Example: Mock Server" class="md-nav__link">
+    Example: Mock Server
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -337,6 +564,97 @@
                 
                 
                 <h1 id="writing-documentation">Writing Documentation</h1>
+<p>Documentation is the first step to implenent an enpoint.</p>
+<p>In this project, we are using <a href="https://apiblueprint.org">API Blueprint</a></p>
+<p>It provides:</p>
+<ul>
+<li>Clean Syntax for defining RESTful API Specification</li>
+<li>Great tooling including mock server and static site generation</li>
+<li>Integretion tests using API blueprint</li>
+</ul>
+<h2 id="example-todo-specification">Example: Todo Specification</h2>
+<p>This section will cover how to define a basic <code>Todo</code> endpoint</p>
+<h3 id="meta-data">Meta Data</h3>
+<p>The meta data define your API name and API Blueprint version.</p>
+<div class="codehilite"><pre><span></span>FORMAT: 1A
+
+<span class="gh">#</span> skeleton-ts
+</pre></div>
+
+
+<h3 id="group">Group</h3>
+<p>A group is a group for RESTful resources. In this example, it is <code>Todo</code>.</p>
+<div class="codehilite"><pre><span></span><span class="gh">#</span> Group Todo
+
+Resources related to Todo in the API.
+</pre></div>
+
+
+<h3 id="collection">Collection</h3>
+<p>Collection is collection of endpoint, in this case, it is <code>/todo</code></p>
+<div class="codehilite"><pre><span></span><span class="gu">##</span> Todo Collection [/todo]
+</pre></div>
+
+
+<h3 id="actions">Actions</h3>
+<p>This is the actions for the collection, for example, getting todo list</p>
+<div class="codehilite"><pre><span></span><span class="gu">###</span> Get Todo List [GET]
+
+<span class="k">-</span> Response 200
+
+  <span class="k">-</span> Attribute (Todo List Response)
+</pre></div>
+
+
+<p>You can also over-ride the endpoint</p>
+<div class="codehilite"><pre><span></span><span class="gu">###</span> Get Todo List [GET /todo/{id}]
+
+<span class="k">-</span> Parameters
+
+  <span class="k">-</span> id: <span class="sb">`123`</span> (string)
+
+    Todo Item ID
+
+<span class="k">-</span> Response 200
+
+  <span class="k">-</span> Attribute (Todo Response)
+</pre></div>
+
+
+<h3 id="data-structures">Data Structures</h3>
+<p>In this section you can define what a respone / request object looks like</p>
+<div class="codehilite"><pre><span></span><span class="gu">##</span> Todo Base (object)
+
+<span class="k">-</span> description: <span class="sb">`Hello World!`</span> (string)
+
+  Todo item description
+</pre></div>
+
+
+<p>You can also define nested object</p>
+<div class="codehilite"><pre><span></span><span class="gu">##</span> Todo List Response (object)
+
+<span class="k">-</span> meta (object)
+
+  <span class="k">-</span> status: 200 (number)
+
+<span class="k">-</span> contents (array[Todo Base])
+</pre></div>
+
+
+<h2 id="example-documentation-website">Example: Documentation Website</h2>
+<p>With <code>aglio</code>, you can generate a static html web page for your API spec.</p>
+<p>Run the following command in this project to generate the web page.</p>
+<div class="codehilite"><pre><span></span>make doc
+</pre></div>
+
+
+<p><img alt="preview" src="../assets/aglio-page.png" /></p>
+<h2 id="example-mock-server">Example: Mock Server</h2>
+<p>If your team start development for frontend or other module with the backend at the same time. Mocking will be very useful to speed up your team development speed.</p>
+<p><code>drakov</code> is include in this project you can start a mock server with your API spec with</p>
+<div class="codehilite"><pre><span></span>make mock
+</pre></div>
                 
                   
                 
@@ -357,7 +675,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../../project-structure/di/" title="Dependency Injection" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../overview/" title="Overview" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -366,19 +684,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Dependency Injection
+                Overview
               </span>
             </div>
           </a>
         
         
-          <a href="../../about/author/" title="Author" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../development/" title="Development" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Author
+                Development
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
