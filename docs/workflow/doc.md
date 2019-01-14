@@ -57,7 +57,7 @@ This is the actions for the collection, for example, getting todo list
 You can also over-ride the endpoint
 
 ```md
-### Get Todo List [GET /todo/{id}]
+### Get Todo Item [GET /todo/{id}]
 
 - Parameters
 
