@@ -318,13 +318,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#adding-middleware" title="Adding Middleware" class="md-nav__link">
-    Adding Middleware
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#adding-controller" title="Adding Controller" class="md-nav__link">
     Adding Controller
   </a>
@@ -341,6 +334,13 @@
           <li class="md-nav__item">
   <a href="#adding-repository" title="Adding Repository" class="md-nav__link">
     Adding Repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-middleware" title="Adding Middleware" class="md-nav__link">
+    Adding Middleware
   </a>
   
 </li>
@@ -520,13 +520,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#adding-middleware" title="Adding Middleware" class="md-nav__link">
-    Adding Middleware
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#adding-controller" title="Adding Controller" class="md-nav__link">
     Adding Controller
   </a>
@@ -543,6 +536,13 @@
           <li class="md-nav__item">
   <a href="#adding-repository" title="Adding Repository" class="md-nav__link">
     Adding Repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-middleware" title="Adding Middleware" class="md-nav__link">
+    Adding Middleware
   </a>
   
 </li>
@@ -614,10 +614,111 @@
 <li>Any sharable logic (e.g. Rate Limiting, Localization)?</li>
 </ul>
 <h2 id="update-application-container">Update application container</h2>
-<h3 id="adding-middleware">Adding <code>Middleware</code></h3>
 <h3 id="adding-controller">Adding <code>Controller</code></h3>
+<p>In this example, we add a <code>TodoController</code></p>
+<div class="codehilite"><pre><span></span><span class="kd">@controller</span><span class="p">(</span><span class="s2">&quot;/todo&quot;</span><span class="p">)</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">TodoController</span> <span class="kr">extends</span> <span class="nx">BaseHttpController</span> <span class="p">{</span>
+  <span class="kr">constructor</span><span class="p">(</span><span class="kd">@inject</span><span class="p">(</span><span class="nx">TYPES</span><span class="p">.</span><span class="nx">TodoService</span><span class="p">)</span> <span class="kr">private</span> <span class="nx">todoService</span>: <span class="kt">TodoService</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="kd">@httpGet</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+  <span class="kr">public</span> <span class="nx">async</span> <span class="nx">getTodos</span><span class="p">(</span><span class="kd">@response</span><span class="p">()</span> <span class="nx">res</span>: <span class="kt">Response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">result</span>: <span class="kt">DataObject</span><span class="o">&lt;</span><span class="nx">ITodo</span><span class="p">[]</span><span class="o">&gt;</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DataObject</span><span class="p">(</span>
+      <span class="nx">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">todoService</span><span class="p">.</span><span class="nx">getTodos</span><span class="p">(),</span>
+      <span class="mi">200</span>
+    <span class="p">);</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">asJson</span><span class="p">());</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>We need to add this line in <code>server.ts</code> for the server to read meta data</p>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="s2">&quot;./controller/todo&quot;</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Also, we need to load <code>TodoService</code> into <code>AppContainer</code></p>
+<div class="codehilite"><pre><span></span><span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppContainer</span> <span class="p">{</span>
+  <span class="kr">constructor</span><span class="p">()</span> <span class="p">{}</span>
+
+  <span class="kr">public</span> <span class="nx">async</span> <span class="nx">load</span><span class="p">()</span><span class="o">:</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">Container</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">container</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Container</span><span class="p">();</span>
+    <span class="nx">container</span><span class="p">.</span><span class="nx">bind</span><span class="o">&lt;</span><span class="nx">TodoRepository</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">TYPES</span><span class="p">.</span><span class="nx">TodoRepository</span><span class="p">).</span><span class="nx">to</span><span class="p">(</span><span class="nx">TodoRepository</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">container</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h3 id="adding-service">Adding <code>Service</code></h3>
 <h3 id="adding-repository">Adding <code>Repository</code></h3>
+<h3 id="adding-middleware">Adding <code>Middleware</code></h3>
+<p><code>Middleware</code> helps to pre-process <code>request</code> object.</p>
+<p>In this example, we use <code>LocalizationMiddleware</code> to get current locale (a <code>LocalizedMessage</code> object).</p>
+<p><code>LocalizationMiddleware</code> will use <code>Localization</code> to get a <code>LocalizedMessage</code>, so we need to inject it.</p>
+<div class="codehilite"><pre><span></span><span class="kd">@injectable</span><span class="p">()</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">LocalizationMiddleware</span> <span class="kr">extends</span> <span class="nx">BaseMiddleware</span> <span class="p">{</span>
+  <span class="nx">handler</span><span class="p">(</span><span class="nx">req</span>: <span class="kt">Request</span><span class="p">,</span> <span class="nx">res</span>: <span class="kt">Response</span><span class="p">,</span> <span class="nx">next</span>: <span class="kt">NextFunction</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">messageStore</span>: <span class="kt">LocalizedMessage</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">localeManager</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">acceptsLanguages</span><span class="p">()</span>
+    <span class="p">);</span>
+
+    <span class="c1">// Bind it into a TYPES instead of adding it into req object</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">bind</span><span class="o">&lt;</span><span class="nx">LocalizedMessage</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">TYPES</span><span class="p">.</span><span class="nx">LocalizedMessage</span><span class="p">).</span><span class="nx">toConstantValue</span><span class="p">(</span>
+      <span class="nx">messageStore</span>
+    <span class="p">);</span>
+    <span class="nx">next</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Inject Localization object, instead of using a singleton object</span>
+  <span class="kr">constructor</span><span class="p">(</span><span class="kd">@inject</span><span class="p">(</span><span class="nx">TYPES</span><span class="p">.</span><span class="nx">Localization</span><span class="p">)</span> <span class="kr">private</span> <span class="nx">localeManager</span>: <span class="kt">Localization</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>After implementing the middleware, we need to load it in <code>AppContainer</code></p>
+<div class="codehilite"><pre><span></span><span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppContainer</span> <span class="p">{</span>
+  <span class="kr">constructor</span><span class="p">()</span> <span class="p">{}</span>
+
+  <span class="kr">public</span> <span class="nx">async</span> <span class="nx">load</span><span class="p">()</span><span class="o">:</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">Container</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">container</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Container</span><span class="p">();</span>
+
+    <span class="nx">container</span>
+      <span class="p">.</span><span class="nx">bind</span><span class="o">&lt;</span><span class="nx">LocalizationMiddleware</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">TYPES</span><span class="p">.</span><span class="nx">LocalizationMiddleware</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="nx">LocalizationMiddleware</span><span class="p">);</span>
+
+    <span class="kr">const</span> <span class="nx">localeManger</span>: <span class="kt">Localization</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Localization</span><span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">);</span>
+    <span class="nx">container</span>
+      <span class="p">.</span><span class="nx">bind</span><span class="o">&lt;</span><span class="nx">Localization</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">TYPES</span><span class="p">.</span><span class="nx">Localization</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">toConstantValue</span><span class="p">(</span><span class="nx">localeManger</span><span class="p">);</span>
+
+    <span class="kr">const</span> <span class="nx">defaultMessage</span>: <span class="kt">LocalizedMessage</span> <span class="o">=</span> <span class="nx">localeManger</span><span class="p">.</span><span class="nx">defaultStore</span><span class="p">();</span>
+    <span class="nx">container</span>
+      <span class="p">.</span><span class="nx">bind</span><span class="o">&lt;</span><span class="nx">LocalizedMessage</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">TYPES</span><span class="p">.</span><span class="nx">LocalizedMessage</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">toConstantValue</span><span class="p">(</span><span class="nx">defaultMessage</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">container</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Finally, we can use it in a <code>Controller</code></p>
+<div class="codehilite"><pre><span></span><span class="kd">@controller</span><span class="p">(</span><span class="s2">&quot;/todo&quot;</span><span class="p">,</span> <span class="nx">TYPES</span><span class="p">.</span><span class="nx">LocalizationMiddleware</span><span class="p">)</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">TodoController</span> <span class="kr">extends</span> <span class="nx">BaseHttpController</span> <span class="p">{</span>
+  <span class="kr">constructor</span><span class="p">(</span>
+    <span class="kd">@inject</span><span class="p">(</span><span class="nx">TYPES</span><span class="p">.</span><span class="nx">TodoService</span><span class="p">)</span> <span class="kr">private</span> <span class="nx">todoService</span>: <span class="kt">TodoService</span><span class="p">,</span>
+    <span class="kd">@inject</span><span class="p">(</span><span class="nx">TYPES</span><span class="p">.</span><span class="nx">LocalizedMessage</span><span class="p">)</span> <span class="kr">private</span> <span class="nx">messageStore</span>: <span class="kt">LocalizedMessage</span>
+  <span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h2 id="working-with-third-party-library">Working with third-party library</h2>
 <h2 id="pattern-to-avoid">Pattern to avoid</h2>
 <h3 id="singleton">Singleton</h3>
