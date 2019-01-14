@@ -54,7 +54,7 @@ This is the actions for the collection, for example, getting todo list
   - Attribute (Todo List Response)
 ```
 
-You can also over-ride the endpoint
+You can also override the endpoint
 
 ```md
 ### Get Todo Item [GET /todo/{id}]
