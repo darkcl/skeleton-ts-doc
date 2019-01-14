@@ -284,9 +284,113 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Development
+      </label>
+    
     <a href="./" title="Development" class="md-nav__link md-nav__link--active">
       Development
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#listing-the-dependency" title="Listing the dependency" class="md-nav__link">
+    Listing the dependency
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update-application-container" title="Update application container" class="md-nav__link">
+    Update application container
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-middleware" title="Adding Middleware" class="md-nav__link">
+    Adding Middleware
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-controller" title="Adding Controller" class="md-nav__link">
+    Adding Controller
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-service" title="Adding Service" class="md-nav__link">
+    Adding Service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-repository" title="Adding Repository" class="md-nav__link">
+    Adding Repository
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-third-party-library" title="Working with third-party library" class="md-nav__link">
+    Working with third-party library
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pattern-to-avoid" title="Pattern to avoid" class="md-nav__link">
+    Pattern to avoid
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#singleton" title="Singleton" class="md-nav__link">
+    Singleton
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-value-to-request-object" title="Adding value to request object" class="md-nav__link">
+    Adding value to request object
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -397,6 +501,97 @@
     
   
   
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#listing-the-dependency" title="Listing the dependency" class="md-nav__link">
+    Listing the dependency
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update-application-container" title="Update application container" class="md-nav__link">
+    Update application container
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-middleware" title="Adding Middleware" class="md-nav__link">
+    Adding Middleware
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-controller" title="Adding Controller" class="md-nav__link">
+    Adding Controller
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-service" title="Adding Service" class="md-nav__link">
+    Adding Service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-repository" title="Adding Repository" class="md-nav__link">
+    Adding Repository
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-third-party-library" title="Working with third-party library" class="md-nav__link">
+    Working with third-party library
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pattern-to-avoid" title="Pattern to avoid" class="md-nav__link">
+    Pattern to avoid
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#singleton" title="Singleton" class="md-nav__link">
+    Singleton
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-value-to-request-object" title="Adding value to request object" class="md-nav__link">
+    Adding value to request object
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -409,6 +604,24 @@
                 
                 
                 <h1 id="development">Development</h1>
+<p>After writing your documentation, you can start implementation.</p>
+<h2 id="listing-the-dependency">Listing the dependency</h2>
+<p>Before implementation, it is always good to list out what dependency you will use.</p>
+<p>You may ask:</p>
+<ul>
+<li>Does this new feature relate to any existing <code>Controller</code>, <code>Service</code> or <code>Repository</code>?</li>
+<li>Any new third-party library you will use?</li>
+<li>Any sharable logic (e.g. Rate Limiting, Localization)?</li>
+</ul>
+<h2 id="update-application-container">Update application container</h2>
+<h3 id="adding-middleware">Adding <code>Middleware</code></h3>
+<h3 id="adding-controller">Adding <code>Controller</code></h3>
+<h3 id="adding-service">Adding <code>Service</code></h3>
+<h3 id="adding-repository">Adding <code>Repository</code></h3>
+<h2 id="working-with-third-party-library">Working with third-party library</h2>
+<h2 id="pattern-to-avoid">Pattern to avoid</h2>
+<h3 id="singleton">Singleton</h3>
+<h3 id="adding-value-to-request-object">Adding value to request object</h3>
                 
                   
                 
